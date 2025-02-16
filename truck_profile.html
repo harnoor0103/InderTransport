@@ -112,7 +112,8 @@
     <div class="container">
         <h1>🚛 Truck Profile</h1>
 
-        <form id="truckForm">
+        <form id="truckForm" action="https://formspree.io/f/xanqpark" method="POST">
+
 
             <!-- Business & Contact Information (Fixed) -->
             <div class="section">
@@ -278,7 +279,7 @@
             document.getElementById('truckForm').insertBefore(newEntry, this);
         });
     </script>
-<form id="truckForm" action="https://formspree.io/f/xanqpark" method="POST">
+
 <script>
 document.getElementById("truckForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevents the default form submission
