@@ -301,6 +301,16 @@ document.getElementById("truckForm").addEventListener("submit", function(event) 
     });
 });
 </script>
-
+<script>
+    fetch(this.action, {
+    method: "POST",
+    body: formData,
+    headers: { "Accept": "application/json" }
+}).then(response => {
+    if (response.ok) {
+        window.location.href = "thank_you.html"; // Redirect to a "Thank You" page
+    }
+});
+</script>
 </body>
 </html>
