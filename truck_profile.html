@@ -112,7 +112,7 @@
     <div class="container">
         <h1>🚛 Truck Profile</h1>
 
-        <form id="truckForm" action="https://formspree.io/f/xanqpark" method="POST">
+        <form id="truckForm">
 
 
             <!-- Business & Contact Information (Fixed) -->
@@ -313,5 +313,79 @@ document.getElementById("truckForm").addEventListener("submit", function(event) 
     }
 });
 </script>
+            <script type="module">
+  // Import the functions you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+  import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+  // Your Firebase Configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBI6hU2DqzS1I7w9uuILDnCJELzGyi-3DM",
+    authDomain: "truckformdb.firebaseapp.com",
+    databaseURL: "https://truckformdb-default-rtdb.firebaseio.com",
+    projectId: "truckformdb",
+    storageBucket: "truckformdb.appspot.com",
+    messagingSenderId: "684328424853",
+    appId: "1:684328424853:web:20dfb4b7111b784462d29c",
+    measurementId: "G-PGH1X1BVX0"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app); // Get database reference
+
+  // Function to handle form submission
+  document.getElementById("truckForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form from refreshing the page
+
+    // Get form values
+    const businessName = document.querySelector("input[name='business_name']").value;
+    const ownerName = document.querySelector("input[name='owner_name']").value;
+    const businessAddress = document.querySelector("input[name='business_address']").value;
+    const businessPhone = document.querySelector("input[name='business_phone']").value;
+    const businessEmail = document.querySelector("input[name='business_email']").value;
+
+    // Truck Information
+    const vinNumber = document.querySelector("input[name='vin_number']").value;
+    const makeModel = document.querySelector("input[name='make_model']").value;
+    const licensePlate = document.querySelector("input[name='license_plate']").value;
+    const truckValue = document.querySelector("input[name='truck_value']").value;
+
+    // Driver 1 Information
+    const driver1Name = document.querySelector("input[name='driver1_name']").value;
+    const driver1Phone = document.querySelector("input[name='driver1_phone']").value;
+    const driver1Address = document.querySelector("input[name='driver1_address']").value;
+
+    // Push data to Firebase
+    const truckDataRef = push(ref(database, "trucks")); // Create a unique entry
+    set(truckDataRef, {
+      business: {
+        name: businessName,
+        owner: ownerName,
+        address: businessAddress,
+        phone: businessPhone,
+        email: businessEmail
+      },
+      truck: {
+        vin: vinNumber,
+        makeModel: makeModel,
+        licensePlate: licensePlate,
+        value: truckValue
+      },
+      driver1: {
+        name: driver1Name,
+        phone: driver1Phone,
+        address: driver1Address
+      }
+    }).then(() => {
+      alert("Data submitted successfully!");
+      document.getElementById("truckForm").reset(); // Reset the form
+    }).catch((error) => {
+      console.error("Error saving data:", error);
+      alert("Error saving data, please try again.");
+    });
+  });
+</script>
+
 </body>
 </html>
